@@ -26,21 +26,28 @@ const SignUp = () => {
   };
 
   return (
-    <div>
+     <div style={styles.container}>
       <h1>Sign Up</h1>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleSignUp}>Sign Up</button>
+      <div style={styles.form}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={styles.input}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={styles.input}
+        />
+        {error && <p style={styles.error}>{error}</p>}
+        <button onClick={handleSignUp} style={styles.button} disabled={loading}>
+          {loading ? "Signing Up..." : "Sign Up"}
+        </button>
+      </div>
     </div>
   );
 };
