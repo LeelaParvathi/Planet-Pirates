@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Payment</title>
+</head>
+<body>
+    <h2>Pay with Razorpay</h2>
+    <button id="pay-btn">Pay ₹500</button>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        document.getElementById("pay-btn").onclick = async function () {
+            const response = await fetch("http://localhost:5000/create-order", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ amount: 500 }) // Amount in INR
+            });
+
+            const order = await response.json();
+
+            var options = {
+                key: "rzp_test_0PVX9J5kjzUSdT", // Replace with your Razorpay Key ID
+                amount: order.amount,
+                currency: "INR",
+                name: "Your Website",
+                description: "Test Transaction",
+                order_id: order.id,
+                handler: async function (response) {
+                    alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+                    
+                    // Send Payment Details to Server for Verification
+                    const verifyResponse = await fetch("http://localhost:5000/verify-payment", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            order_id: order.id,
+                            payment_id: response.razorpay_payment_id,
+                            signature: response.razorpay_signature
+                        })
+                    });
+
+                    const verifyResult = await verifyResponse.json();
+                    alert(verifyResult.message);
+                },
+                prefill: { name: "John Doe", email: "johndoe@example.com", contact: "9999999999" },
+                theme: { color: "#3399cc" }
+            };
+
+            var rzp = new Razorpay(options);
+            rzp.open();
+        };
+    </script>
+</body>
+</html>
