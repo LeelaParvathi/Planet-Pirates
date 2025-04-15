@@ -5,16 +5,17 @@ import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCk9IV9rcosKRDXBLHln9Nh8jCxAyYGdWw",
-    authDomain: "carpooling-b7fae.firebaseapp.com",
-    databaseURL: "https://carpooling-b7fae-default-rtdb.firebaseio.com",
-    projectId: "carpooling-b7fae",
-    storageBucket: "carpooling-b7fae.firebasestorage.app",
-    messagingSenderId: "25794477334",
-    appId: "1:25794477334:web:76b0eda6080f4a75d9e437",
-    measurementId: "G-0X9G37T2Z6"
-  };
-  
+  apiKey: "AIzaSyBEg6IdgHe0twGSeiLrgxr7-dZgl9syd6s",
+  authDomain: "car-pooling-f642e.firebaseapp.com",
+  databaseURL: "https://car-pooling-f642e-default-rtdb.firebaseio.com",
+  projectId: "car-pooling-f642e",
+  storageBucket: "car-pooling-f642e.firebasestorage.app",
+  messagingSenderId: "208164505310",
+  appId: "1:208164505310:web:f0b8b02e4ea85fe193a44f",
+  measurementId: "G-2SSBH60E6X"
+};
+
+
   const app = initializeApp(firebaseConfig);
   export const auth = getAuth(app);
   export const database = getDatabase(app);
